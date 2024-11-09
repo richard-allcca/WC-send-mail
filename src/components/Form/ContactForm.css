@@ -1,0 +1,25 @@
+.form-title {
+  font-size: 24px;
+  font-family: sans-serif;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  width: 50%;
+  margin: 0 auto;
+
+  input {
+    border: 1px solid gray;
+    border-radius: 9px;
+    padding: 12px 8px;
+  }
+
+  textarea {
+    border-radius: 9px;
+    padding: 12px 8px;
+  }
+}
