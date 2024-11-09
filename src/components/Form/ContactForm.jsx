@@ -11,7 +11,7 @@ const initialForm = {
 	comments: "",
 };
 
-// Validaciones, esta funcion podria ir en un helper u otro archivo
+// Validaciones, esta función podría ir en un helper u otro archivo
 const validationsForm = (form) => {
 	let errors = {};
 	let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
@@ -37,7 +37,7 @@ const validationsForm = (form) => {
 	if (!form.comments.trim()) {
 		errors.comments = `El campo "Comments" es Requerido`;
 	} else if (!regexComments.test(form.comments.trim())) {
-		errors.comment = 'El campo "Comments" recibe un maximo de 255 caracteres ';
+		errors.comment = 'El campo "Comments" recibe un máximo de 255 caracteres ';
 	}
 
 	return errors;
@@ -51,74 +51,75 @@ let styles = {
 
 const ContactForm = () => {
 	const {
-		form,
-		errors,
-		loading,
-		response,
-		handleChange,
-		handleBlur,
-		handleSubmit,
+			form,
+			errors,
+			loading,
+			response,
+			handleChange,
+			handleBlur,
+			handleSubmit,
 	} = useForm(initialForm, validationsForm);
-  const [pageUrl, setPageUrl] = useState('');
-  console.log("🚀 ~ ContactForm ~ pageUrl:", pageUrl)
+const [pageUrl, setPageUrl] = useState('');
+console.log("🚀 ~ ContactForm ~ pageUrl:", pageUrl)
 
 	useEffect(() => {
-    if (typeof window !== 'undefined') setPageUrl(window?.location?.href);
-  }, []);
+	if (typeof window !== 'undefined') setPageUrl(window?.location?.href);
+}, []);
 
 	return (
-		<>
-			<h2 className='form-title' >Formulario de Contacto</h2>
-			<form onSubmit={handleSubmit} className='form-container' >
-				<input
-					type="text"
-					name="name"
-					placeholder="Escribe tu Nombre"
-					onBlur={handleBlur}
-					onChange={handleChange}
-					value={form.name}
-					required
-				/>
-				{errors.name && <p style={styles}>{errors.name}</p>}
-				<input
-					type="email"
-					name="email"
-					placeholder="Escribe tu Email"
-					onBlur={handleBlur}
-					onChange={handleChange}
-					value={form.email}
-					required
-				/>
-				{errors.email && <p style={styles}>{errors.email}</p>}
-				<input
-					type="text"
-					name="subject"
-					placeholder="Asunto a Tratar"
-					onBlur={handleBlur}
-					onChange={handleChange}
-					value={form.subject}
-					required
-				/>
-				{errors.subject && <p style={styles}>{errors.subject}</p>}
-				<textarea
-					name="comments"
-					id=""
-					cols="50"
-					rows="5"
-					placeholder="Escribe tus Comentarios"
-					onBlur={handleBlur}
-					onChange={handleChange}
-					value={form.comments}
-					required
-				></textarea>
-				{errors.comments && <p style={styles}>{errors.comments}</p>}
-				<input type="submit" value="Enviar" />
-			</form>
-			{loading && <Loader />}
-			{response && (
-				<Message msg="Los datos han sido enviados" bgColor="#198754" />
-			)}
-		</>
+			<>
+					<h2 className='form-title' >Formulario de Contacto</h2>
+					<form onSubmit={handleSubmit} className='form-container' >
+							<input
+									type="text"
+									name="name"
+									placeholder="Escribe tu Nombre"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={form.name}
+									required
+							/>
+							{errors.name && <p style={styles}>{errors.name}</p>}
+							<input
+									type="email"
+									name="email"
+									placeholder="Escribe tu Email"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={form.email}
+									required
+							/>
+							{errors.email && <p style={styles}>{errors.email}</p>}
+							<input
+									type="text"
+									name="subject"
+									placeholder="Asunto a Tratar"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={form.subject}
+									required
+							/>
+							{errors.subject && <p style={styles}>{errors.subject}</p>}
+							<textarea
+									name="comments"
+									id=""
+									cols="50"
+									rows="5"
+									placeholder="Escribe tus Comentarios"
+									onBlur={handleBlur}
+									onChange={handleChange}
+									value={form.comments}
+									required
+							></textarea>
+							{errors.comments && <p style={styles}>{errors.comments}</p>}
+							<input type="submit" value="Enviar" />
+					</form>
+					{loading && <Loader />}
+					{response && (
+							<Message msg="Los datos han sido enviados" bgColor="#198754" />
+					)}
+			</>
 	);
 };
+
 export default ContactForm;
