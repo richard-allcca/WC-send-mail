@@ -1,8 +1,10 @@
+.form-subtitle,
 .form-title {
   font-size: 24px;
   font-family: sans-serif;
   text-align: center;
   margin-bottom: 24px;
+  color: aliceblue;
 }
 
 .form-container {

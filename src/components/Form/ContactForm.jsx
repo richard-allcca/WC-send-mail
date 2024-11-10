@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useForm } from './../../hooks/useForm';
 import './ContactForm.css';
@@ -49,7 +50,7 @@ let styles = {
 	color: "#dc3545",
 };
 
-const ContactForm = () => {
+const ContactForm = ({ urlLocal, ...props }) => {
 	const {
 		form,
 		errors,
@@ -60,16 +61,24 @@ const ContactForm = () => {
 		handleSubmit,
 	} = useForm(initialForm, validationsForm);
 	const [ pageUrl, setPageUrl ] = useState('');
+	const [ localUrl, setLocalUrl ] = useState(urlLocal);
 	console.log("🚀 ~ ContactForm ~ pageUrl:", pageUrl);
+	console.log("🚀 ~ ContactForm ~ urlLocal:", localUrl);
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') setPageUrl(window?.location?.href);
+		if (typeof window !== 'undefined') {
+			setPageUrl(window.location.href);
+			const element = document.querySelector('contact-form-element');
+			const urlLocalAttr = element?.attributes?.getNamedItem('urlLocal')?.value;
+			setLocalUrl(urlLocalAttr);
+		}
 	}, []);
 
 	return (
 		<>
-			<h2 className='form-title' >Formulario de Contacto</h2>
-			<form onSubmit={ handleSubmit } className='form-container' >
+			<h2 className='form-title'>Formulario de Contacto</h2>
+			<p className='form-subtitle' >URL Local como atributo: { localUrl ?? 'No se proporcionó URL Local' }</p> {/* Utiliza la prop aquí */ }
+			<form onSubmit={ handleSubmit } className='form-container'>
 				<input
 					type="text"
 					name="name"
@@ -102,7 +111,6 @@ const ContactForm = () => {
 				{ errors.subject && <p style={ styles }>{ errors.subject }</p> }
 				<textarea
 					name="comments"
-					id=""
 					cols="50"
 					rows="5"
 					placeholder="Escribe tus Comentarios"
@@ -120,6 +128,10 @@ const ContactForm = () => {
 			) }
 		</>
 	);
+};
+
+ContactForm.propTypes = {
+	urlLocal: PropTypes.string,
 };
 
 export default ContactForm;
